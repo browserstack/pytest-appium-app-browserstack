@@ -8,3 +8,4 @@ pytest==7.1
 pytest-variables
 pytest-xdist
 Appium-Python-Client
+browserstack-sdk
