@@ -1,30 +1,23 @@
 # PyTest with Browserstack AppAutomate
 
-PyTest Integration with BrowserStack.
+PyTest Integration with BrowserStack using SDK.
 
 ![BrowserStack Logo](https://d98b8t1nnulk5.cloudfront.net/production/images/layout/logo-header.png?1469004780)
 ### Requirements
 
-1. Python 3.6+ or Python 2.7+
-    
-    - For Windows, download latest python version from [here](https://www.python.org/downloads/windows/) and run the installer executable
-    - For Mac and Linux, run `python --version` to see what python version is pre-installed. If you want a different version download from [here](https://www.python.org/downloads/)
+* Python3
 
-### Install the dependencies
+## Setup
 
-To install the dependencies, run the following command in project's base directory:
-
-- For Python 3
-
-    ```sh
-    pip3 install -r requirements.txt
-    ```
-
-- For Python 2
-
-    ```sh
-    pip install -r requirements.txt
-    ```
+* Clone the repo with `git clone -b sdk https://github.com/browserstack/pytest-appium-app-browserstack.git`
+* It is recommended to use a virtual environment to install dependencies. To create a virtual environment:
+  ```
+  python3 -m venv env
+  source env/bin/activate # on Mac
+  env\Scripts\activate # on Windows
+  ```
+* Install dependencies `pip install -r requirements.txt`
+* To run your automated tests using BrowserStack, you must provide a valid username and access key. This can be done either by providing your username and access key in the `browserstack.yml` configuration file, or by setting the `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY` environment variables.
 
 ## Getting Started
 
@@ -34,62 +27,36 @@ Getting Started with Pytest-Appium tests in Python on BrowserStack couldn't be e
 
 **1. Upload your Android or iOS App**
 
-Upload your Android app (.apk or .aab file) or iOS app (.ipa file) to BrowserStack servers using our REST API. Here is an example cURL request :
+Specify your Android app (.apk or .aab file) or iOS app (.ipa file) in the `browserstack.yml` configuration file. Here is an example app config :
 
 ```
-curl -u "YOUR_USERNAME:YOUR_ACCESS_KEY" \
--X POST "https://api-cloud.browserstack.com/app-automate/upload" \
--F "file=@/path/to/apk/file"
+app: '/path/to/local/app.apk'
 ```
 
-Ensure that @ symbol is prepended to the file path in the above request. Please note the `app_url` value returned in the API response. We will use this to set the application under test while configuring the test later on.
+Set `app` to use the appliction under test for Appium sessions. Available options: app: `/path/to/local/app.apk` OR app: `bs://<app-id>` i.e App URL returned when uploading the app to BrowserStack manually. Visit https://www.browserstack.com/docs/app-automate/appium/set-up-tests/specify-app for more options
 
 **Note**: If you do not have an .apk or .ipa file and are looking to simply try App Automate, you can download and test using our [sample Android app](https://www.browserstack.com/app-automate/sample-apps/android/WikipediaSample.apk) or [sample iOS app](https://www.browserstack.com/app-automate/sample-apps/ios/BStackSampleApp.ipa).
 
 
 **2. Configure and run your first single test**
 
-Open `single.json` file in `android/run-single-test` folder for Android and `ios/run-single-test` folder for iOS:
+Open `browserstack.yml` file in `android` folder for Android and `ios` folder for iOS:
 
-- Replace `BROWSERSTACK_USERNAME` & `BROWSERSTACK_ACCESS_KEY` with your BrowserStack access credentials. Get your BrowserStack access credentials from [here](https://www.browserstack.com/accounts/settings)
+- Replace `YOUR_USERNAME` & `YOUR_ACCESS_KEY` in the `browserstack.yml` configuration file. Get your BrowserStack access credentials from [here](https://www.browserstack.com/accounts/settings)
 
-- Replace `bs://<app-id>` with the URL obtained from app upload step
+- Replace `app: bs://<app-id>` with the URL obtained from app upload step or mention the path to your apk file.
 
-- Set the deviceName and platformVersion. You can refer our [Capability Generator](https://www.browserstack.com/app-automate/capabilities)
-
-- Run the below command to execute a single Android test on BrowserStack AppAutomate:
+- Run the below command to execute a Android test on BrowserStack AppAutomate:
     ```
     cd android
-    paver run single
+    browserstack-sdk pytest -s bstack_sample.py
     ```
 
-- Run the below command to execute a single iOS test on BrowserStack AppAutomate:
+- Run the below command to execute a iOS test on BrowserStack AppAutomate:
     ```
     cd ios
-    paver run single
+    browserstack-sdk pytest -s bstack_sample.py
     ```
-
-**3. Configure and run your parallel test**
-
-- In order to run tests in parallel across different configurations, Open `parallel.json` file in `android/run-parallel-test` folder for Android and `ios/run-parallel-test` folder for iOS
-
-- Replace `BROWSERSTACK_USERNAME` & `BROWSERSTACK_ACCESS_KEY` with your BrowserStack access credentials. Get your BrowserStack access credentials from [here](https://www.browserstack.com/accounts/settings)
-
-- Replace `bs://<app-id>` wkth the URL obtained from app upload step
-
-- Set the deviceName and platformVersion. You can refer our [Capability Generator](https://www.browserstack.com/app-automate/capabilities)
-    
-- Run the below command to execute parallel Android test on BrowserStack AppAutomate:
-```
-cd android
-paver run parallel
-```
-
-- Run the below command to execute a parallel iOS test on BrowserStack AppAutomate:
-```
-cd ios
-paver run parallel
-```
 
 - You can access the test execution results, and debugging information such as video recording, network logs on [App Automate dashboard](https://app-automate.browserstack.com/dashboard)
 
@@ -99,42 +66,37 @@ paver run parallel
 
 **1. Upload your Android or iOS App**
 
-Upload your Android app (.apk or .aab file) or iOS app (.ipa file) that access resources hosted on your internal or test environments to BrowserStack servers using our REST API. Here is an example cURL request :
+Specify your Android app (.apk or .aab file) or iOS app (.ipa file) in the `browserstack.yml` configuration file. Here is an example app config :
 
 ```
-curl -u "YOUR_USERNAME:YOUR_ACCESS_KEY" \
--X POST "https://api-cloud.browserstack.com/app-automate/upload" \
--F "file=@/path/to/apk/file"
+app: '/path/to/local/app.apk'
 ```
 
-Ensure that @ symbol is prepended to the file path in the above request. Please note the `app_url` value returned in the API response. We will use this to set the application under test while configuring the test later on.
+Set `app` to use the appliction under test for Appium sessions. Available options: app: `/path/to/local/app.apk` OR app: `bs://<app-id>` i.e App URL returned when uploading the app to BrowserStack manually. Visit https://www.browserstack.com/docs/app-automate/appium/set-up-tests/specify-app for more options
 
-**Note**: If you do not have an .apk or .ipa file and are looking to simply try App Automate, you can download and test using our [sample Android Local app](https://www.browserstack.com/app-automate/sample-apps/android/LocalSample.apk) or [sample iOS Local app](https://www.browserstack.com/app-automate/sample-apps/ios/LocalSample.ipa).
+**Note**: If you do not have an .apk or .ipa file and are looking to simply try App Automate, you can download and test using our [sample Android app](https://www.browserstack.com/app-automate/sample-apps/android/WikipediaSample.apk) or [sample iOS app](https://www.browserstack.com/app-automate/sample-apps/ios/BStackSampleApp.ipa).
 
 
 **2. Configure and run your local test**
 
-Open `local.json` file in `android/run-local-test` folder for Android and `ios/run-local-test` folder for iOS:
+Open `browserstack.yml` file in `android` folder for Android and `ios` folder for iOS:
 
+- Replace `YOUR_USERNAME` & `YOUR_ACCESS_KEY` in the `browserstack.yml` configuration file. Get your BrowserStack access credentials from [here](https://www.browserstack.com/accounts/settings)
 
-- Replace `BROWSERSTACK_USERNAME` & `BROWSERSTACK_ACCESS_KEY` with your BrowserStack access credentials. Get your BrowserStack access credentials from [here](https://www.browserstack.com/accounts/settings)
+- Replace `app: bs://<app-id>` with the URL obtained from app upload step or mention the path to your apk file.
 
-- Replace `bs://<app-id>` wkth the URL obtained from app upload step
-
-- Set the deviceName and platformVersion. You can refer our [Capability Generator](https://www.browserstack.com/app-automate/capabilities)
-
-- Ensure that `local` capability is set to `true`. The `conftest.py` contains the code snippet that automatically establishes Local Testing connection to BrowserStack servers using Python binding for BrowserStack Local. 
+- Ensure that `browserstackLocal` capability is set to `true`. The `browserstack-sdk` contains the code snippet that automatically establishes Local Testing connection to BrowserStack servers using Python binding for BrowserStack Local. 
 
 - Run the below command for Android: 
     ```
     cd android
-    paver run local
+    browserstack-sdk pytest -s bstack_sample_local.py
     ```
 
 - Run the below command for iOS: 
     ```
     cd ios
-    paver run local
+    browserstack-sdk pytest -s bstack_sample_local.py
     ```
 
 - You can access the test execution results, and debugging information such as video recording, network logs on [App Automate dashboard](https://app-automate.browserstack.com/dashboard)
