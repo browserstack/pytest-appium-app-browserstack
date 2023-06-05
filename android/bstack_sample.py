@@ -25,10 +25,5 @@ class TestSample:
         time.sleep(5)
         search_results = self.driver.find_elements(
             AppiumBy.CLASS_NAME, "android.widget.TextView")
-            
-        if(len(search_results) > 0):
-            self.driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Test Passed Successfully"}}')
-        else:
-            self.driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "Test Failed"}}')
+        
+        assert len(search_results) > 0

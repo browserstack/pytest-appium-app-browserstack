@@ -28,11 +28,4 @@ class TestSample:
             if "Up and running" in result.text:
                 test_element = result
 
-        if test_element is None:
-            self.driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "Cannot find the needed TextView element from app"}}')
-        else:
-            self.driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Test Passed Successfully"}}')
-        
-        
+        assert test_element is not None

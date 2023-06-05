@@ -26,11 +26,6 @@ class TestSample:
         time.sleep(5)
         result_element = self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, "ResultBrowserStackLocal")
         result_string = result_element.text.lower()
-        if result_string.__contains__("up and running"):
-            self.driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Test passed"}}')
-        else:
-            self.driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "Test failed"}}')
+        assert result_string.__contains__("up and running")
         
         

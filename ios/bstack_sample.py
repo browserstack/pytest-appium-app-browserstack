@@ -23,10 +23,4 @@ class TestSample:
         text_output = WebDriverWait(self.driver, 30).until(
             EC.element_to_be_clickable((AppiumBy.ACCESSIBILITY_ID, "Text Output"))
         )
-            
-        if(text_output!=None and text_output.text=="hello@browserstack.com"):
-            self.driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Test Passed Successfully"}}')
-        else:
-            self.driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "Test Failed"}}')
+        assert text_output!=None and text_output.text=="hello@browserstack.com"
