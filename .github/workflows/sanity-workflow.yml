@@ -1,5 +1,5 @@
 # This job is to test different maven profiles in sdk branch against full commit-id provided
-# This workflow targets Playwright execution
+# This workflow targets Appium execution
 
 name: Python SDK Test workflow on workflow_dispatch
 
@@ -55,15 +55,25 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
 
-      - name: run tests in parallel
+      - name: run tests in parallel on android
         run: |
           cd android
           browserstack-sdk pytest -s bstack_sample.py
-
-      - name: run local tests in parallel
+      
+      - name: run local tests in parallel on android
+        run: |
+          cd android
+          browserstack-sdk pytest -s bstack_sample_local.py --browserstack.app "./LocalSample.apk"
+      
+      - name: run tests in parallel on ios
         run: |
           cd ios
           browserstack-sdk pytest -s bstack_sample.py
+
+      - name: run local tests in parallel on ios
+        run: |
+          cd ios
+          browserstack-sdk pytest -s bstack_sample_local.py --browserstack.app "./LocalSample.ipa"
 
       - if: always()
         uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
