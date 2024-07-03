@@ -6,6 +6,5 @@ selenium==4.6.0
 psutil
 pytest==7.1
 pytest-variables
-pytest-selenium
+pytest-xdist
 Appium-Python-Client
-browserstack-sdk

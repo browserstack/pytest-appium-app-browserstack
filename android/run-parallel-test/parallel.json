@@ -1,0 +1,27 @@
+{
+    "user": "BROWSERSTACK_USERNAME",
+    "key": "BROWSERSTACK_ACCESS_KEY",
+    "capabilities": {
+        "app" : "bs://<app-id>",
+        "bstack:options": {
+            "projectName": "Pytest Android Project",
+            "buildName": "browserstack-build-1",
+            "sessionName": "BStack parallel_test",
+            "local": false,
+            "debug": "true",
+            "networkLogs": "true"
+        }
+    },
+    "environments": [
+        {
+            "platformName": "android",
+            "platformVersion": "9.0",
+            "deviceName": "Google Pixel 3"
+        },
+        {
+            "platformName": "android",
+            "platformVersion": "11.0",
+            "deviceName": "Samsung Galaxy A52"
+        }
+    ]
+}
