@@ -3,8 +3,8 @@
 # =============================
 # Add your BrowserStack userName and accessKey here or set BROWSERSTACK_USERNAME and
 # BROWSERSTACK_ACCESS_KEY as env variables
-userName: YOUR_USERNAME
-accessKey: YOUR_ACCESS_KEY
+userName: darkoandreevski_td10RI
+accessKey: WTwSCzzwjwfQZETXApBq
 
 # ======================
 # BrowserStack Reporting
@@ -19,7 +19,7 @@ buildName: browserstack build
 # ${BUILD_NUMBER} (Default): Generates an incremental counter with every execution
 # ${DATE_TIME}: Generates a Timestamp with every execution. Eg. 05-Nov-19:30
 # Read more about buildIdentifiers here -> https://www.browserstack.com/docs/automate/selenium/organize-tests
-buildIdentifier: '#${BUILD_NUMBER}' # Supports strings along with either/both ${expression}
+buildIdentifier: "#${BUILD_NUMBER}" # Supports strings along with either/both ${expression}
 # Set `framework` of your test suite. Example, `testng`, `cucumber`, `cucumber-testng`
 # This property is needed to send test context to BrowserStack (test name, status)
 framework: pytest
