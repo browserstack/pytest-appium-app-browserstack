@@ -4,7 +4,7 @@ multiprocess
 paver
 selenium==4.6.0
 psutil
-pytest==7.1
+pytest==9.0.3
 pytest-variables
 pytest-selenium
 Appium-Python-Client
